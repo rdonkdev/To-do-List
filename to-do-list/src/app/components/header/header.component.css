@@ -1,0 +1,17 @@
+*{  
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    font-family: poppins;
+    color: aliceblue;
+    font-weight: bold;
+}
+.logo{
+    background-color: rgb(53, 180, 253);
+}
+.logo img{
+    margin: 0 10px;
+    width: 30px; 
+}
