@@ -50,4 +50,12 @@ export class TodoListComponent {
       }
     });
   }
+
+  editElement(element: PeriodicElement):void {
+    this.openDialog(element);
+  }
+
+  deleteElement(position: number):void {
+    this.dataSource = this.dataSource.filter(p => p.position !== position);
+  }
 }
