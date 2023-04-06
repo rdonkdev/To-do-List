@@ -10,16 +10,16 @@ export interface PeriodicElement {
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, task: 'Hydrogen', completed: false },
-  {position: 2, task: 'Helium', completed: false },
-  {position: 3, task: 'Lithium', completed: false },
-  {position: 4, task: 'Beryllium', completed: false },
-  {position: 5, task: 'Boron', completed: false },
-  {position: 6, task: 'Carbon', completed: false },
-  {position: 7, task: 'Nitrogen', completed: false },
-  {position: 8, task: 'Oxygen', completed: false },
-  {position: 9, task: 'Fluorine', completed: false },
-  {position: 10, task: 'Neon', completed: false },
+  {position: 1, task: 'Fazer a cama', completed: false },
+  {position: 2, task: 'Tomar café da manhã', completed: false },
+  {position: 3, task: 'Escovar os dentes', completed: false },
+  {position: 4, task: 'Tomar banho', completed: false },
+  {position: 5, task: 'Arrumar a casa', completed: false },
+  {position: 6, task: 'Fazer compras no mercado', completed: false },
+  {position: 7, task: 'Pagar contas', completed: false },
+  {position: 8, task: 'Trabalhar no projeto da faculdade', completed: false },
+  {position: 9, task: 'Fazer exercícios físicos', completed: false },
+  {position: 10, task: 'Ler um livro.', completed: false },
 ];
 @Component({
   selector: 'app-todo-list',
@@ -40,13 +40,23 @@ export class TodoListComponent {
         position: null,
         task: '',
         completed: false
-      } : element
+      } : {
+        position: element.position,
+        task: element.task,
+        completed: element.completed
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result !== undefined) {
-        this.dataSource.push(result);
-        this.table.renderRows();
+        if (this.dataSource.map(p => p.position).includes(result.position)) {
+          this.dataSource[result.position - 1] = result;
+          this.table.renderRows();
+        } else {
+          this.dataSource.push(result);
+          this.table.renderRows();
+        }
+
       }
     });
   }
