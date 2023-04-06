@@ -1,12 +1,13 @@
 *{  
+    padding: 5pt;
     text-align: center;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: row;
-    font-family: poppins;
     color: aliceblue;
     font-weight: bold;
+    border-radius: 5pt;
 }
 .logo{
     background-color: rgb(53, 180, 253);
