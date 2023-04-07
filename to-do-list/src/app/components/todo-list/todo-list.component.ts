@@ -1,15 +1,12 @@
 import { Component, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTable } from '@angular/material/table';
+import { TodoTasksService } from 'src/app/Services/todoTasks.service';
+import { TodoTasks } from 'src/app/model/TodoTasks';
 import { ElementDialogComponent } from 'src/app/shared/element-dialog/element-dialog.component';
 
-export interface PeriodicElement {
-  task: string;
-  position: number;
-  completed: boolean;
-}
 
-const ELEMENT_DATA: PeriodicElement[] = [
+const ELEMENT_DATA: TodoTasks[] = [
   {position: 1, task: 'Fazer a cama', completed: false },
   {position: 2, task: 'Tomar café da manhã', completed: false },
   {position: 3, task: 'Escovar os dentes', completed: false },
@@ -24,17 +21,26 @@ const ELEMENT_DATA: PeriodicElement[] = [
 @Component({
   selector: 'app-todo-list',
   templateUrl: './todo-list.component.html',
-  styleUrls: ['./todo-list.component.css']
+  styleUrls: ['./todo-list.component.css'],
+  providers: [TodoTasksService]
 })
 export class TodoListComponent {
   @ViewChild(MatTable)
   table!: MatTable<any>;
   displayedColumns: string[] = ['position', 'name', 'completed', 'action'];
-  dataSource = ELEMENT_DATA;
+  dataSource!: TodoTasks[];
 
-  constructor(public dialog: MatDialog) {}
+  constructor(
+    public dialog: MatDialog,
+    public todoTasksService: TodoTasksService
+    ) {
+      this.todoTasksService.getElements()
+       .subscribe((data: TodoTasks[]) => {
+        this.dataSource =  data;
+       });
+    }
 
-  openDialog(element: PeriodicElement | null): void {
+  openDialog(element: TodoTasks | null): void {
     const dialogRef = this.dialog.open(ElementDialogComponent, {
       data:element === null ? {
         position: null,
@@ -61,7 +67,7 @@ export class TodoListComponent {
     });
   }
 
-  editElement(element: PeriodicElement):void {
+  editElement(element: TodoTasks):void {
     this.openDialog(element);
   }
 
@@ -69,3 +75,5 @@ export class TodoListComponent {
     this.dataSource = this.dataSource.filter(p => p.position !== position);
   }
 }
+export { TodoTasks };
+

@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import { PeriodicElement } from 'src/app/components/todo-list/todo-list.component';
+import { TodoTasks } from 'src/app/components/todo-list/todo-list.component';
 
 @Component({
   selector: 'app-element-dialog',
@@ -8,12 +8,12 @@ import { PeriodicElement } from 'src/app/components/todo-list/todo-list.componen
   styleUrls: ['./element-dialog.component.css']
 })
 export class ElementDialogComponent {
-  element!: PeriodicElement;
+  element!: TodoTasks;
   isChange!: boolean;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) 
-    public data: PeriodicElement,
+    public data: TodoTasks,
     public dialogRef: MatDialogRef<ElementDialogComponent>,
   ) {}
 
