@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Task;
+use App\Http\Controllers\TesteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,4 +20,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('task', 'TaskController@getTask');
+
+Route::get('/task', 
+    ['as' => 'task', 'uses' => 'App\Http\Controllers\Task\TaskController@getTask']);
+
+Route::get('teste', 'TesteController@getTeste');
